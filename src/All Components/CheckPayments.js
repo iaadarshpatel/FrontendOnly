@@ -139,11 +139,11 @@ const CheckPayments = () => {
     <>
       {/* Render LoginToastMessage only when showToast is true */}
       {showToast && <LoginToastMessage />}
-      <div className="flex h-full opacity-1 z-10 mt-1">
+      <div className="flex h-screen opacity-1 z-10 mt-1">
         <LottieFile />
         <SideBar />
         <div className="flex-1 flex items-center justify-center mx-2 p-9 z-10">
-        <div className="absolute top-4 right-8 p-1 border-2 border-black flex flex-col md:flex-row items-center">
+          <div className="absolute top-4 right-2 p-2 rounded-xl border border-gray-300 border-b-0 custom-shadow flex flex-col md:flex-row items-center">
         {isLoading ? (
             <Chip color='indigo' value="Loading..." className='normal-case text-white bg-black font-bold inline-block pt-2 ml-1' />
         ) : swrError ? (
