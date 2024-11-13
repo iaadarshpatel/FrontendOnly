@@ -53,6 +53,7 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [attendanceMap, setAttendanceMap] = useState({});
   const [employeeId, setEmployeeId] = useState(null);
+  console.log(employeeId);
 
   const token = localStorage.getItem("Access Token");
 

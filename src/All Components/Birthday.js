@@ -68,7 +68,7 @@ const Birthday = () => {
                 <img
                   className="relative w-24 h-24 mb-3 overflow-hidden rounded-full shadow-2xl shadow-white transition-transform duration-300 transform hover:scale-105"
                   src={item.Profile_img !== "Not Uploaded" ? item.Profile_img : nobirthday}
-                  alt="{`${item.Employee_Name} image`}"
+                  alt="profile"
                 />
                 <h5 className="mb-1 text-md font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-yellow-400 to-blue-500">
                   {item.Employee_Name.slice(0, 18)}
@@ -95,7 +95,7 @@ const Birthday = () => {
               <Typography variant="h3" className="mt-2">Birthday!</Typography>
             </div>
 
-            <img className="w-24 h-24 mb-3 rounded-full shadow-2xl shadow-white" src={nobirthday} alt="image" />
+            <img className="w-24 h-24 mb-3 rounded-full shadow-2xl shadow-white" src={nobirthday} alt="profile" />
             <span className='inline-flex items-center py-2 text-md font-bold'>
               No Birth Today! 😔
             </span>

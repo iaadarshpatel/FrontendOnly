@@ -20,6 +20,7 @@ function Login() {
     const logOutTimer = 7200000;
     const logoutTimerRef = useRef(null);
     const [showAnimation, setShowAnimation] = useState(window.innerWidth >= 600);
+    console.log(showButton);
 
     const setZoomTo90Percent = () => {
         document.body.style.zoom = "90%";
