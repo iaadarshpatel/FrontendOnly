@@ -118,8 +118,8 @@ function Login() {
     };
 
     return (
-        <div className='h-full'>
-            <section className="px-4 py-6 h-full flex items-center">
+        <div className='h-full p-4'>
+            <section className="mt-12 h-full flex items-center">
                 <div className="container mx-auto flex flex-col lg:flex-row w-full max-w-screen-xl h-auto">
                     <div className="flex flex-col lg:flex-row w-full items-center lg:items-stretch">
                         {/* Lottie Animation */}
