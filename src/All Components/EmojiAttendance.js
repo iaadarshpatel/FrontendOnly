@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Typography, ListItem, Tooltip, Switch } from "@material-tailwind/react";
-import { FaCheckCircle, FaHome, FaHospitalUser, FaUmbrellaBeach, FaQuestionCircle, FaUserClock, FaUserGraduate } from 'react-icons/fa';
+import { FaCheckCircle, FaHome, FaHospitalUser, FaUmbrellaBeach, FaQuestionCircle, FaUserClock } from 'react-icons/fa';
 import { GiMoneyStack, GiWitchFlight } from 'react-icons/gi';
 import { MdPunchClock, MdSick } from 'react-icons/md';
 import { LuPalmtree } from 'react-icons/lu';
