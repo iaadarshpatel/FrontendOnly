@@ -7,6 +7,7 @@ import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid";
 import Lottie from 'react-lottie';
 import loti2 from '../assets/loti_file.json'
 import Typewriter from 'typewriter-effect';
+import config from "../config.js";
 import './style.css';
 
 
@@ -20,7 +21,6 @@ function Login() {
     const logOutTimer = 7200000;
     const logoutTimerRef = useRef(null);
     const [showAnimation, setShowAnimation] = useState(window.innerWidth >= 600);
-    console.log(showButton);
 
     useEffect(() => {
         const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -62,7 +62,7 @@ function Login() {
         }
 
         try {
-            const response = await axios.post('https://ediglobe-backend-main.onrender.com/employee/auth/login', { employeeCode, password });
+            const response = await axios.post(`${config.hostedUrl}/employee/auth/login`, { employeeCode, password });
 
             if (response.status === 200) {
                 const token = response.data.token;
@@ -99,7 +99,7 @@ function Login() {
             setTimeout(() => setError(''), 5000);
         }
     };
-    
+
     const handleLogout = () => {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('employeeId');
@@ -117,13 +117,13 @@ function Login() {
         }
     };
 
-    return (
+    return ( 
         <div className='h-full p-4'>
             <section className="mt-12 h-full flex items-center">
-                <div className="container mx-auto flex flex-col lg:flex-row w-full max-w-screen-xl h-auto">
+                <div className="container mx-auto flex flex-col lg:flex-row w-full max-w-screen-xl h-full">
                     <div className="flex flex-col lg:flex-row w-full items-center lg:items-stretch">
                         {/* Lottie Animation */}
-                        <div className="w-full lg:w-1/2 flex justify-center items-center mb-8 lg:mb-0">
+                        <div className="w-full lg:w-1/2 flex justify-center items-center lg:mb-0">
                             {showAnimation && <Lottie options={defaultOptions} height={300} width={300} />}
                         </div>
                         {/* Login Form */}

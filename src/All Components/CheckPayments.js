@@ -8,6 +8,7 @@ import Typewriter from 'typewriter-effect';
 import LottieFile from "./LottieFile";
 import useSWR from 'swr';
 import LoginToastMessage from "./LoginToastMessage";
+import config from "../config.js";
 
 const CheckPayments = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,9 +27,11 @@ const CheckPayments = () => {
             Authorization: token,
         },
     }).then((res) => res.json());
-  const { data, error: swrError } = useSWR('https://ediglobe-backend-main.onrender.com/paymentCount/payment/count', fetcher, {
-    refreshInterval: 4000,
-  });
+    const { data, error: swrError } = useSWR(`${config.hostedUrl}/paymentCount/payment/count`,fetcher,
+      {
+          refreshInterval: 4000,
+      }
+  );
 
   const postSalesCountNumber = data && typeof data.postSalesCount === 'number' ? data.postSalesCount : "Loading..";
   const salesCountNumber = data && typeof data.salesCount === 'number' ? data.salesCount : "Loading...";
@@ -60,7 +63,7 @@ const CheckPayments = () => {
 
     try {
       const token = localStorage.getItem("Access Token");
-      const response = await axios.get(`https://ediglobe-backend-main.onrender.com/paymentCount/searchpayment/${query}`, {headers: {
+      const response = await axios.get(`${config.hostedUrl}/paymentCount/searchpayment/${query}`, {headers: {
         Authorization: token
       }});
       if (response.data) {
@@ -144,30 +147,30 @@ const CheckPayments = () => {
         <SideBar />
         <div className="flex-1 flex items-center justify-center mx-2 p-9 z-10">
           <div className="absolute top-4 right-2 p-2 rounded-xl border border-gray-300 border-b-0 custom-shadow flex flex-col md:flex-row items-center">
-        {isLoading ? (
-            <Chip color='indigo' value="Loading..." className='normal-case text-white bg-black font-bold inline-block pt-2 ml-1' />
-        ) : swrError ? (
-              <div className="flex space-x-4">
-                <div className="h-6 w-12 bg-gray-300 animate-pulse rounded"></div>
-                <div className="h-6 w-12 bg-gray-300 animate-pulse rounded"></div>
+          {isLoading ? (
+              <Chip color='indigo' value="Loading..." className='normal-case text-white bg-black font-bold inline-block pt-2 ml-1' />
+          ) : swrError ? (
+                <div className="flex space-x-4">
+                  <div className="h-6 w-12 bg-gray-300 animate-pulse rounded"></div>
+                  <div className="h-6 w-12 bg-gray-300 animate-pulse rounded"></div>
+              </div>
+          ) : (
+            <div>
+              <span className="text-black-500 font-bold">Today's Date: {formattedDate} </span>
+              <Typography variant="text" color="blue-gray" className="whitespace-nowrap font-bold flex items-center">
+                  <span className="text-lg md:text-base">Payment Count:</span>
+                  <span className="text-green-500 ml-2 text-lg md:text-base">Sales</span>
+                  <Chip color='indigo' value={salesCountNumber} className='text-white bg-black font-bold inline-block pt-2 ml-1' />
+                  {/* Vertical line */}
+                  <span className="mx-2 md:mx-4 border-l border-gray-500 h-6 inline-block"></span>
+                  <span className="text-red-500 text-lg md:text-base">Post Sales</span>
+                  <Chip color='indigo' value={postSalesCountNumber} className='text-white bg-black font-bold inline-block pt-2 ml-1' />
+              </Typography>
             </div>
-        ) : (
-          <div>
-            <span className="text-black-500 font-bold">Today's Date: {formattedDate} </span>
-            <Typography variant="text" color="blue-gray" className="whitespace-nowrap font-bold flex items-center">
-                <span className="text-lg md:text-base">Daily Payment Count:</span>
-                <span className="text-green-500 ml-2 text-lg md:text-base">Sales</span>
-                <Chip color='indigo' value={salesCountNumber} className='text-white bg-black font-bold inline-block pt-2 ml-1' />
-                {/* Vertical line */}
-                <span className="mx-2 md:mx-4 border-l border-gray-500 h-6 inline-block"></span>
-                <span className="text-red-500 text-lg md:text-base">Post Sales</span>
-                <Chip color='indigo' value={postSalesCountNumber} className='text-white bg-black font-bold inline-block pt-2 ml-1' />
-            </Typography>
+          )}
           </div>
-        )}
-        </div>
 
-          <Typography>
+          <Typography className="mt-4">
             <div className="min-h-full flex flex-col justify-center">
               <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <form onSubmit={handleCheck} method="POST" className="space-y-6">

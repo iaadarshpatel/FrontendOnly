@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
+import config from '../config.js';
 
 const AttendanceShortForm = {
   "P": "Present",
@@ -16,6 +17,7 @@ const AttendanceShortForm = {
   "ABS": "Abscond",
   "RESG": "Resigned",
   "HOL": "Holiday",
+  "IC": "Internship Completed",
 };
 
 const AttendanceColors = {
@@ -32,6 +34,7 @@ const AttendanceColors = {
   "ABS": "text-red-500",
   "RESG": "",
   "HOL": "text-orange-500",
+  "IC": "text-purple-500",
 };
 
 
@@ -53,7 +56,6 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [attendanceMap, setAttendanceMap] = useState({});
   const [employeeId, setEmployeeId] = useState(null);
-  console.log(employeeId);
 
   const token = localStorage.getItem("Access Token");
 
@@ -64,7 +66,7 @@ const fetcher = (url) =>
     },
   }).then((res) => res.json());
 
-  const { data, error } = useSWR('https://ediglobe-backend-main.onrender.com/attendanceDetails/attendance', fetcher, {
+  const { data, error } = useSWR(`${config.hostedUrl}/attendanceDetails/attendance`, fetcher, {
     refreshInterval: 4000,
     onSuccess: (fetchedData) => {
       localStorage.setItem('attendanceData', JSON.stringify(fetchedData));
