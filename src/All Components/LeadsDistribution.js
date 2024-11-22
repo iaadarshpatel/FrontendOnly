@@ -466,7 +466,7 @@ const LeadsDistribution = () => {
                               </Chip>
                             </td>
                             <td className="p-4">
-                              <Typography variant="small" color="blue-gray" className="font-normal w-48">{college}</Typography>
+                              <Typography variant="small" color="blue-gray" className="font-normal w-40">{college}</Typography>
                             </td>
                             <td className="p-4">
                               <Typography variant="small" color='blue-gray' className="font-normal">{state}
@@ -513,7 +513,7 @@ const LeadsDistribution = () => {
                                 {(disabledLeads[id]) && (
                                   <div className="inline-flex items-center">
                                     <Chip
-                                      value="Updated to db"
+                                      value="Updated"
                                       variant="ghost"
                                       className='rounded-full bg-gray-800 normal-case text-white font-bold inline-block pt-2 ml-2 w-18'
                                     />
