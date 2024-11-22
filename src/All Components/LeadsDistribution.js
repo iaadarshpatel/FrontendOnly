@@ -426,7 +426,7 @@ const LeadsDistribution = () => {
                 <thead>
                   <tr>
                     {["Student Name", "Contacts", "Course", "College", "State", "Degree", "Graduation Year", "Status"].map((head) => (
-                      <th key={head} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                      <th key={head} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3">
                         <Typography variant="small" className="font-bold leading-none text-black">
                           {head}
                         </Typography>
@@ -445,7 +445,7 @@ const LeadsDistribution = () => {
                         const matchedLead = matchedLeads.find((lead) => lead.id === id);
                         return (
                           <tr key={id}>
-                            <td className="p-4">
+                            <td className="p-3">
                               <div className="flex items-center gap-3">
                                 <div className="flex flex-col">
                                   <Typography variant="small" color="blue-gray" className="font-normal">{student_name}</Typography>
@@ -453,7 +453,7 @@ const LeadsDistribution = () => {
                                 </div>
                               </div>
                             </td>
-                            <td className="p-4">
+                            <td className="p-3">
                               <div className="flex items-center gap-3">
                                 <div className="flex flex-col">
                                   <Typography variant="small" color="blue-gray" className="font-normal" onClick={() => window.location.href = `tel:${contact1}`}>{contact1}</Typography>
@@ -461,25 +461,25 @@ const LeadsDistribution = () => {
                                 </div>
                               </div>
                             </td>
-                            <td className="p-4">
+                            <td className="p-3">
                               <Chip variant="small" value={course1} className="font-bold text-center text-white bg-black p-2.5 w-32 whitespace-normal break-words">
                               </Chip>
                             </td>
-                            <td className="p-4">
+                            <td className="p-3">
                               <Typography variant="small" color="blue-gray" className="font-normal w-40">{college}</Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-3">
                               <Typography variant="small" color='blue-gray' className="font-normal">{state}
                               </Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-3">
                               <Typography variant="small" color='blue-gray' className="font-normal">{degree}
                               </Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-3">
                               <Typography variant="small" color="blue-gray" className="font-normal">{graduation_year}</Typography>
                             </td>
-                            <td className="p-4">
+                            <td className="p-3">
                               <div className="flex items-center gap-2">
                                 <select
                                   className={`overflow-y-auto font-normal text-blue-gray bg-white border border-gray-300 rounded-md p-2 border-2 ${matchedLead ? 'opacity-50' : 'opacity-100'
@@ -517,7 +517,7 @@ const LeadsDistribution = () => {
                                       variant="ghost"
                                       className='rounded-full bg-gray-800 normal-case text-white font-bold inline-block pt-2 ml-2 w-18'
                                     />
-                                    <Tooltip
+                                    {/* <Tooltip
                                       placement="bottom"
                                       className="border border-blue-gray-50 bg-black px-2 py-3 shadow-xl shadow-black/10"
                                       content={
@@ -549,8 +549,7 @@ const LeadsDistribution = () => {
                                           d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
                                         />
                                       </svg>
-                                    </Tooltip>
-
+                                    </Tooltip> */}
                                   </div>
                                 )}
                               </div>
@@ -560,7 +559,7 @@ const LeadsDistribution = () => {
                       })
                     ) : (
                       <tr>
-                        <td colSpan={8} className="text-center p-4">No leads found</td>
+                        <td colSpan={8} className="text-center p-3">No leads found</td>
                       </tr>
                     )
                   ) : (
