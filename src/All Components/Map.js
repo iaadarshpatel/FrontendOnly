@@ -63,7 +63,7 @@ const ClockInOut = () => {
   };
 
   const handleClockIn = async () => {
-    handleOpen("md");
+    handleOpen("xl");
     setShowMap(true);
     const employeeId = localStorage.getItem("employeeId");
     const currentTime = new Date();
@@ -99,7 +99,6 @@ const ClockInOut = () => {
           attendanceMarkDate: formattedDate,
           employeeId,
         };
-        console.log("Clock-in logs:", clockInlog);
         try {
           const token = localStorage.getItem("Access Token");
           const response = await axios
@@ -114,7 +113,6 @@ const ClockInOut = () => {
               console.error("Error saving log:", error);
               throw error;
             });
-          console.log("Response from API:", response);
           alert("Saved successfully");
 
           // Update the logs array locally after successful post
@@ -165,7 +163,6 @@ const ClockInOut = () => {
 
         try {
           const token = localStorage.getItem("Access Token");
-          console.log("Clock-out Logs:", newLog);
 
           // Send the new log object to the API
           const response = await axios
@@ -180,8 +177,6 @@ const ClockInOut = () => {
               console.error("Error saving log:", error);
               throw error; // Rethrow to catch it in the outer block
             });
-
-          console.log("Response from API:", response);
           alert("Saved successfully");
 
           // Update the logs array locally after successful post
@@ -278,7 +273,7 @@ const ClockInOut = () => {
                   <Typography className="text-sm !font-medium !text-gray-600">
                     Worked for:{" "}
                     <span className="font-bold text-black">
-                      {isClockedIn ? "4 / 8 Hrs" : "0 / 8 Hrs"}
+                      0 / 8 hours
                     </span>
                   </Typography>
                 </div>
@@ -319,20 +314,23 @@ const ClockInOut = () => {
         </Card>
       </div>
       <Dialog
-        open={
-          size === "md"
-        }
+        open={size === "xl"}
         size={size || "md"}
         handler={handleOpen}
       >
-        <DialogHeader>You are
-            <h1 className={`text-sm font-bold border border-gray-400 rounded-lg mx-2 p-1 
-            ${isClockedIn ? "text-green-800" : "text-red-800"
-              }`}>
-              {isClockedIn ? "Clocked In" : "Clocked Out"}
-              </h1> In ❤️
+        <DialogHeader className="text-center sm:text-left">
+          You are
+          <h1
+            className={`text-sm sm:text-base font-bold border border-gray-400 rounded-lg mx-2 p-1 
+        ${isClockedIn ? "text-green-800" : "text-red-800"}
+      `}
+          >
+            {isClockedIn ? "Clocked In" : "Clocked Out"}
+          </h1>
+          In ❤️
         </DialogHeader>
         <Typography className="flex justify-between items-center mb-1 text-gray-600 text-xs font-normal">
+          {/* Additional content can go here */}
         </Typography>
         <DialogBody>
           {showMap && isLoaded && (
@@ -358,8 +356,8 @@ const ClockInOut = () => {
             </div>
           )}
         </DialogBody>
-        <DialogFooter className="flex justify-between">
-          <span className="bg-black px-2 py-3 text-xs font-bold text-white ring-1 ring-inset ring-green-600/20">
+        <DialogFooter className="flex flex-col sm:flex-row justify-between">
+          <span className="bg-black px-2 py-3 text-xs font-bold text-white ring-1 ring-inset ring-green-600/20 mb-2 sm:mb-0">
             Precise Location: ON
           </span>
           <Button variant="gradient" color="green" onClick={handleOpen}>
@@ -367,6 +365,7 @@ const ClockInOut = () => {
           </Button>
         </DialogFooter>
       </Dialog>
+
     </>
   );
 };
