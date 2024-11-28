@@ -113,7 +113,7 @@ const ClockInOut = () => {
               console.error("Error saving log:", error);
               throw error;
             });
-          alert("Saved successfully");
+          // alert("Saved successfully");
 
           // Update the logs array locally after successful post
           const updatedLogs = [...logs, clockInlog];
@@ -177,7 +177,7 @@ const ClockInOut = () => {
               console.error("Error saving log:", error);
               throw error; // Rethrow to catch it in the outer block
             });
-          alert("Saved successfully");
+          alert("Clocked Out successfully");
 
           // Update the logs array locally after successful post
           const updatedLogs = [...logs, newLog];
