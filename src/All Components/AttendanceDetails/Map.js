@@ -414,10 +414,13 @@ const ClockInOut = () => {
         {updatedAttendanceLogs && updatedAttendanceLogs.length > 0 ? (
           <ul className="space-y-4">
             {updatedAttendanceLogs.map((log, index) => (
-              <li key={log._id.$oid || index} className="border text-black p-3 rounded-lg shadow-sm">
+              <li key={log._id || index} className="border text-black p-3 rounded-lg shadow-sm">
                 <h3 className="font-bold text-lg mb-2">
                   {log.attendanceMarkDate}
                 </h3>
+                <p>
+                  <strong>EmployeeId:</strong> {log.Employee_Id}
+                </p>
                 <p>
                   <strong>Clock In Time:</strong> {log.clockInTime}
                 </p>
