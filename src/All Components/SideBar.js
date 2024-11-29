@@ -19,8 +19,7 @@ const SideBar = ( ) => {
   const dispatch = useDispatch();
   const allDetails = useSelector(state => state.employeesDetails);
 
-  const {Designation
-  } = allDetails.data || {};
+  const {Designation} = allDetails.data || {};
 
    // Fetch employee details on component mount
    useEffect(() => {
@@ -136,7 +135,7 @@ const SideBar = ( ) => {
                 <ListItemPrefix>
                   <CalendarDateRangeIcon className="h-5 w-5 text-black"/>
                 </ListItemPrefix>
-                <Typography className="mr-auto">Attendance</Typography>
+                <Typography className="mr-auto font-normal">Attendance</Typography>
               </AccordionHeader>
             </ListItem>
             <AccordionBody className="py-1">
