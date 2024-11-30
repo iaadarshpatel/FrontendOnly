@@ -83,74 +83,86 @@ const ClockInOut = () => {
   };
 
   const handleClockIn = async () => {
-    handleOpen("xl");
-    setShowMap(true);
     const employeeId = localStorage.getItem("employeeId");
     const currentTime = new Date();
     const formattedDate = formatDateTime();
-
-    setIsClockedIn(true);
-    setClockInTime(currentTime);
-    setTodayDay(formattedDate);
-
+  
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const { latitude, longitude } = position.coords;
-        const fetchedAddress = await fetchAddress(latitude, longitude);
-        setAddress(fetchedAddress);
-        setClockInLatitude(latitude);
-        setClockInLongitude(longitude);
-
-        // Save to localStorage after updating the state values
-        localStorage.setItem("isClockedIn", "true");
-        localStorage.setItem("clockInTime", currentTime.toISOString());
-        localStorage.setItem("clockInAddress", fetchedAddress);
-        localStorage.setItem("attendanceMarkDate", formattedDate);
-        localStorage.setItem("clockInLatitude", latitude);
-        localStorage.setItem("clockInLongitude", longitude);
-
-
-        // Create the log object
-        const clockInlog = {
-          clockInTime: currentTime.toLocaleString(),
-          clockInAddress: fetchedAddress,
-          clockInLatitude: latitude,
-          clockInLongitude: longitude,
-          attendanceMarkDate: formattedDate,
-          employeeId,
-        };
-        try {
-          const token = localStorage.getItem("Access Token");
-          const response = await axios
-            .post(`${config.hostedUrl}/logs/attendanceLogsPost`, clockInlog, {
-              headers: {
-                Authorization: token,
-                "Content-Type": "application/json",
-              },
-            })
-            .then((res) => res.data)
-            .catch((error) => {
-              console.error("Error saving log:", error);
-              throw error;
-            });
-          // alert("Saved successfully");
-
-          // Update the logs array locally after successful post
-          const updatedLogs = [...logs, clockInlog];
-          setLogs(updatedLogs);
-          setUpdatedAttendanceLogs(updatedLogs);
-
-          // Update localStorage with the new logs array
-          localStorage.setItem("clockLogs", JSON.stringify(updatedLogs));
-        } catch (error) {
-          console.error("Error saving log:", error);
-          alert("Failed to save log. Please try again.");
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          const fetchedAddress = await fetchAddress(latitude, longitude);
+  
+          // Update state
+          setIsClockedIn(true);
+          setClockInTime(currentTime);
+          setTodayDay(formattedDate);
+          setAddress(fetchedAddress);
+          setClockInLatitude(latitude);
+          setClockInLongitude(longitude);
+  
+          // Save to localStorage
+          localStorage.setItem("isClockedIn", "true");
+          localStorage.setItem("clockInTime", currentTime.toISOString());
+          localStorage.setItem("clockInAddress", fetchedAddress);
+          localStorage.setItem("attendanceMarkDate", formattedDate);
+          localStorage.setItem("clockInLatitude", latitude);
+          localStorage.setItem("clockInLongitude", longitude);
+  
+          // Trigger dialog and map visibility
+          handleOpen("xl");
+          setShowMap(true);
+  
+          // Create the log object
+          const clockInlog = {
+            clockInTime: currentTime.toLocaleString(),
+            clockInAddress: fetchedAddress,
+            clockInLatitude: latitude,
+            clockInLongitude: longitude,
+            attendanceMarkDate: formattedDate,
+            employeeId,
+          };
+  
+          try {
+            const token = localStorage.getItem("Access Token");
+            const response = await axios
+              .post(`${config.hostedUrl}/logs/attendanceLogsPost`, clockInlog, {
+                headers: {
+                  Authorization: token,
+                  "Content-Type": "application/json",
+                },
+              })
+              .then((res) => res.data)
+              .catch((error) => {
+                console.error("Error saving log:", error);
+                throw error;
+              });
+  
+            // Update logs
+            const updatedLogs = [...logs, clockInlog];
+            setLogs(updatedLogs);
+            setUpdatedAttendanceLogs(updatedLogs);
+            localStorage.setItem("clockLogs", JSON.stringify(updatedLogs));
+  
+            // Success alert
+            alert("Clock-in successful! Your attendance has been logged.");
+          } catch (error) {
+            console.error("Error saving log:", error);
+            alert("Failed to save log. Please try again.");
+          }
+        },
+        (error) => {
+          // Handle geolocation error
+          alert("Location access is required to clock in. Please enable location services and try again.");
         }
-      });
+      );
     } else {
-      setAddress("Geolocation not supported.");
+      // Handle case where geolocation is not supported
+      alert("Geolocation is not supported by your browser.");
     }
   };
+  
+  
 
   const handleClockOut = async () => {
     setShowMap(false);
