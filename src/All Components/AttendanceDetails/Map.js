@@ -132,7 +132,7 @@ const ClockInOut = () => {
           const distance = calculateDistance(latitude, longitude, targetLocation.lat, targetLocation.lng);
 
           // Check if user is within the 3000-meter threshold
-          if (distance <= 12000) {
+          if (distance <= 2000) {
 
             // Fetch the address of the current location
             const fetchedAddress = await fetchAddress(latitude, longitude);
