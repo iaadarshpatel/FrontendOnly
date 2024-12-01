@@ -115,7 +115,7 @@ const ClockInOut = () => {
           // Calculate the distance between the user's current location and the target location
           const distance = calculateDistance(latitude, longitude, targetLocation.lat, targetLocation.lng);
 
-          if (distance <= 50) {
+          if (distance <= 3000) {
             const fetchedAddress = await fetchAddress(latitude, longitude);
 
             // Update state
@@ -167,7 +167,7 @@ const ClockInOut = () => {
               alert("Failed to save log. Please try again.");
             }
           } else {
-            alert("You must be within 30 meters of the Office location to clock in.");
+            alert("You must be within the Office location to clock in.");
           }
         },
         (error) => {
