@@ -34,7 +34,7 @@ const ClockInOut = () => {
   useEffect(() => {
     const fetchEmployeeAttendanceLogs = async () => {
       try {
-        setLoader({ ...loader, fetching: true });
+        setLoader((prevLoader) => ({ ...prevLoader, fetching: true }));
         const response = await axios.get(`${config.hostedUrl}/attendanceLogs/${Employee_Id}`, {
           headers: {
             Authorization: token,
@@ -45,10 +45,9 @@ const ClockInOut = () => {
       } catch (error) {
         console.error("Error fetching employee attendance logs:", error);
       } finally {
-        setLoader({ ...loader, fetching: false });
+        setLoader((prevLoader) => ({ ...prevLoader, fetching: false }));
       }
     };
-
     fetchEmployeeAttendanceLogs();
   }, [Employee_Id, token]);
 
@@ -59,13 +58,9 @@ const ClockInOut = () => {
   };
 
   useEffect(() => {
-    const savedClockInState = localStorage.getItem("isClockedIn");
     const {clockInTime, clockOutTime, clockInAddress, attendanceMarkDate} = updatedAttendanceLogs.length > 0 ? updatedAttendanceLogs[updatedAttendanceLogs.length - 1] : {};
     const isClockedIn = !!clockInTime ;
     const isClockedOut = isClockedIn && !!clockOutTime;
-    const savedClockInTime = localStorage.getItem("clockInTime");
-    const savedClockInAddress = localStorage.getItem("clockInAddress");
-    const savedAttendanceMarkDate = localStorage.getItem("attendanceMarkDate");
     const savedLogs = JSON.parse(localStorage.getItem("clockLogs")) || [];
 
     if (!isClockedIn && !isClockedOut) {
@@ -132,7 +127,7 @@ const ClockInOut = () => {
           const distance = calculateDistance(latitude, longitude, targetLocation.lat, targetLocation.lng);
 
           // Check if user is within the 3000-meter threshold
-          if (distance <= 2000) {
+          if (distance <= 12000) {
 
             // Fetch the address of the current location
             const fetchedAddress = await fetchAddress(latitude, longitude);
@@ -239,7 +234,7 @@ const ClockInOut = () => {
                 "Content-Type": "application/json",
               },
             });
-
+            alert("Clocked Out Successfully!");
             const updatedLogs = [...logs, newLog];
             setLogs(updatedLogs);
             setUpdatedAttendanceLogs(updatedLogs);
@@ -251,7 +246,7 @@ const ClockInOut = () => {
             resetClockInState();
           } catch (error) {
             console.error("Error saving log:", error);
-            alert("Failed to save clock-out log.");
+            alert("Failed to save clock-out log");
           } finally {
             setLoader({...loader, punching: false});
           }
