@@ -107,7 +107,6 @@ const ClockInOut = () => {
   const handleClockIn = async () => {
     const currentTime = new Date();
     const formattedDate = formatDateTime();
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -116,7 +115,7 @@ const ClockInOut = () => {
           // Calculate the distance between the user's current location and the target location
           const distance = calculateDistance(latitude, longitude, targetLocation.lat, targetLocation.lng);
 
-          if (distance <= 10000) {
+          if (distance <= 50) {
             const fetchedAddress = await fetchAddress(latitude, longitude);
 
             // Update state
@@ -147,7 +146,7 @@ const ClockInOut = () => {
               attendanceMarkDate: formattedDate,
               employeeId: Employee_Id,
             };
-
+            
             try {
               const token = localStorage.getItem("Access Token");
               const response = await axios.post(`${config.hostedUrl}/logs/attendanceLogsPost`, clockInlog, {
@@ -465,7 +464,9 @@ const ClockInOut = () => {
             )}
           </div>
         </DialogBody>
+
       </Dialog>
+
     </>
   );
 };
