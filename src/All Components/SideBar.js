@@ -173,7 +173,7 @@ const SideBar = ( ) => {
             Notification
           </ListItem>
 
-          <ListItem onClick={() => navigate("/LeadsDistribution")} className={`border-b-0 p-3 ${open === 4 ? 'bg-blue-gray-50' : 'hover:bg-blue-gray-50'}`}>
+          <ListItem onClick={() => alert("Under Maintenance!")} className={`border-b-0 p-3 ${open === 4 ? 'bg-blue-gray-50' : 'hover:bg-blue-gray-50'}`}>
             <ListItemPrefix>
               <TableCellsIcon className="h-5 w-5 text-black"/>
             </ListItemPrefix>
