@@ -335,11 +335,47 @@ const ClockInOut = () => {
   const customIcon = {
     url: MarkerIcon,
   };
+
+  const SkeletonCard = () => {
+    return (
+      <div className="w-full lg:full flex justify-end">
+        <div className="w-full lg:w-3/5 rounded-lg border border-gray-600 py-2 px-2 bg-gray-200 animate-pulse">
+          {/* Top Section */}
+          <div className="flex justify-between items-center mb-2">
+            <div className="h-4 bg-gray-400 rounded w-3/5"></div>
+            <div className="h-4 bg-gray-400 rounded w-1/4"></div>
+          </div>
+  
+          {/* Middle Section */}
+          <div className="flex mb-2">
+            <div className="bg-gray-400 rounded-full h-7 w-7"></div>
+            <div className="flex flex-col gap-2 ml-3 w-full">
+              <div className="h-4 bg-gray-400 rounded w-1/2"></div>
+              <div className="h-4 bg-gray-400 rounded w-3/4"></div>
+            </div>
+          </div>
+  
+          {/* Conditional Section */}
+          <div className="space-y-2">
+            <div className="h-4 bg-gray-400 rounded w-full"></div>
+            <div className="h-4 bg-gray-400 rounded w-2/3"></div>
+          </div>
+  
+          {/* Buttons */}
+          <div className="flex gap-2 mt-3">
+            <div className="h-10 bg-gray-400 rounded w-3/4"></div>
+            <div className="h-10 bg-gray-400 rounded w-1/4"></div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="w-full lg:w-1/2 flex justify-end">
-        {loader.fetching ?
-          <Chip color='indigo' value="Loading Attendance..." className='normal-case text-white bg-black font-bold inline-block pt-2 ml-1' />
+        {loader.fetching ? 
+          <SkeletonCard/>
           : (
             <Card className="w-full lg:w-3/5 rounded-lg border border-gray-300 py-2 px-2">
               <Typography className="flex justify-between items-center mb-1 text-gray-600 text-xs font-normal">
