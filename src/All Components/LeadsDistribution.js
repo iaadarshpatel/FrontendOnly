@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import SideBar from './Roles/SideBar.js';
+import SideBar from './SideBar.js';
 import LottieFile from './LottieFile';
 import { Card, CardBody, Input, Typography, Button, Chip, DialogBody, DialogFooter, Dialog, DialogHeader } from '@material-tailwind/react';
 import { MagnifyingGlassIcon, ArrowRightCircleIcon } from '@heroicons/react/24/solid';
