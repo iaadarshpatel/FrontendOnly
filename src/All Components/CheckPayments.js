@@ -35,6 +35,7 @@ const CheckPayments = () => {
 
   const postSalesCountNumber = data && typeof data.postSalesCount === 'number' ? data.postSalesCount : "Loading..";
   const salesCountNumber = data && typeof data.salesCount === 'number' ? data.salesCount : "Loading...";
+  
 
   const todayDate = new Date();
   const formattedDate = todayDate.toLocaleDateString('en-GB');
