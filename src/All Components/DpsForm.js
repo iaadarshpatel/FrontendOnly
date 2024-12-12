@@ -277,7 +277,7 @@ const DpsForm = () => {
                                         <input
                                             type="text"
                                             placeholder='Enter Student Name'
-                                            {...register("studentName", { required: true, minLength: 3, maxLength: 15 })}
+                                            {...register("studentName", { required: true, minLength: 3, maxLength: 20 })}
                                             className="w-full py-2 pl-12 pr-3 border rounded-md border-dashed border-gray-600 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:border-gray-500 focus:ring-gray-900/10"
                                             disabled={isSubmitting}
                                         />
