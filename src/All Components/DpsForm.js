@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SideBar from './SideBar';
+import SideBar from './Roles/SideBar';
 import LottieFile from './LottieFile';
 import config from '../config';
 import { Button, Card, Chip, Dialog, DialogBody, DialogFooter, DialogHeader, Typography } from '@material-tailwind/react';
@@ -96,6 +96,14 @@ const DpsForm = () => {
         try {
             setError(false);
             const token = localStorage.getItem("Access Token");
+            const { studentPersonalEmail, domainOpted } = data; 
+            console.log(data);
+            if (studentPersonalEmail === dpsFormData.studentPersonalEmail &&
+                domainOpted === dpsFormData.domainOpted
+            ) {
+                alert("DPS data already exists for the provided email.");
+                return; 
+            }
             const response = await axios.post(`${config.hostedUrl}/dpsForm/dpsFormData`, dataWithDate, {
                 headers: {
                     Authorization: token,
@@ -277,9 +285,10 @@ const DpsForm = () => {
                                         <input
                                             type="text"
                                             placeholder='Enter Student Name'
-                                            {...register("studentName", { required: true, minLength: 3, maxLength: 20 })}
+                                            {...register("studentName", { required: true, minLength: 3, maxLength: 15 })}
                                             className="w-full py-2 pl-12 pr-3 border rounded-md border-dashed border-gray-600 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:border-gray-500 focus:ring-gray-900/10"
                                             disabled={isSubmitting}
+                                            autocomplete="off"
                                         />
                                     </div>
                                     {errors.studentName && (
@@ -308,6 +317,7 @@ const DpsForm = () => {
                                             })}
                                             className="w-full py-2 pl-12 pr-3 border rounded-md border-dashed border-gray-600 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:border-red-500 focus:ring-gray-900/10"
                                             disabled={isSubmitting}
+                                            autocomplete="off"
                                         />
                                     </div>
                                     {errors.studentPersonalEmail && (
@@ -336,6 +346,7 @@ const DpsForm = () => {
                                             })}
                                             className="w-full py-2 pl-12 pr-3 border rounded-md border-dashed border-gray-600 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:border-red-500 focus:ring-gray-900/10"
                                             disabled={isSubmitting}
+                                            autocomplete="off"
                                         />
                                     </div>
                                     {errors.contactNumber && (
@@ -364,6 +375,7 @@ const DpsForm = () => {
                                             })}
                                             className="w-full py-2 pl-12 pr-3 border rounded-md border-dashed border-gray-600 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:border-gray-500 focus:ring-gray-900/10"
                                             disabled={isSubmitting}
+                                            autocomplete="off"
                                         />
                                     </div>
                                     {errors.whatsAppNumber && (
@@ -389,6 +401,7 @@ const DpsForm = () => {
                                             {...register("DateOfRegistration", { required: true })}
                                             className="w-full py-2 pl-12 pr-3 border rounded-md border-dashed border-gray-600 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:border-red-500 focus:ring-gray-900/10"
                                             disabled={isSubmitting}
+                                            autocomplete="off"
                                         />
                                     </div>
                                     {errors.DateOfRegistration && (
@@ -414,6 +427,7 @@ const DpsForm = () => {
                                             {...register("collegeName", { required: true, minLength: 3, maxLength: 40 })}
                                             className="w-full py-2 pl-12 pr-3 border rounded-md border-dashed border-gray-600 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500 placeholder:opacity-100 focus:border-gray-500 focus:ring-gray-900/10"
                                             disabled={isSubmitting}
+                                            autocomplete="off"
                                         />
                                     </div>
                                     {errors.collegeName && (
