@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SideBar from './Roles/SideBar';
+import SideBar from './SideBar';
 import LottieFile from './LottieFile';
 import config from '../config';
 import { Button, Card, Chip, Dialog, DialogBody, DialogFooter, DialogHeader, Typography } from '@material-tailwind/react';
