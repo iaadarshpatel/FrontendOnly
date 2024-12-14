@@ -585,6 +585,7 @@ const DpsForm = () => {
                                             <option value="Self Learning with ADD ON">Self Learning with ADD ON</option>
                                             <option value="Expert Lead Program">Expert Lead Program</option>
                                             <option value="Expert Lead Program with ADD ON">Expert Lead Program with ADD ON</option>
+                                            <option value="Offline">Offline</option>
                                         </select>
                                     </div>
                                     {errors.domainType && (
@@ -613,6 +614,7 @@ const DpsForm = () => {
                                             <option value="5000">5000</option>
                                             <option value="5500">5500</option>
                                             <option value="7500">7500</option>
+                                            <option value="12000-18000">12000-18000</option>
                                         </select>
                                     </div>
                                     {errors.amountPitched && (
