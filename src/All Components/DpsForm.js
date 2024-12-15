@@ -92,14 +92,14 @@ const DpsForm = () => {
         const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
         const formattedDate = formatDateTime();
         const dataWithDate = { ...data, DateOfDpsFilled: formattedDate };
-        await delay(3000);
+        await delay(4000);
         try {
             setError(false);
             const token = localStorage.getItem("Access Token");
+            const dpsFormDataSafe = dpsFormData || {};
             const { studentPersonalEmail, domainOpted } = data;
-            console.log(data);
-            if (studentPersonalEmail === dpsFormData.studentPersonalEmail &&
-                domainOpted === dpsFormData.domainOpted
+            if (studentPersonalEmail === dpsFormDataSafe.studentPersonalEmail &&
+                domainOpted === dpsFormDataSafe.domainOpted
             ) {
                 alert("DPS data already exists for the provided email.");
                 return;
@@ -113,6 +113,7 @@ const DpsForm = () => {
             setDpsFormData(response.data);
             alert("DPS data updated successfully!");
             reset();
+            window.location.reload();
         } catch (error) {
             const errorMessage = error.response?.data?.error || 'Failed to update DPS data';
             alert(errorMessage);
