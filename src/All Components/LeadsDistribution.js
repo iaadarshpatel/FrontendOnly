@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import SideBar from './SideBar.js';
 import LottieFile from './LottieFile';
+import SideBar from './SideBar.js';
 import { Card, CardBody, Input, Typography, Button, Chip, DialogBody, DialogFooter, Dialog, DialogHeader } from '@material-tailwind/react';
-import { MagnifyingGlassIcon, ArrowRightCircleIcon } from '@heroicons/react/24/solid';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import useSWR from 'swr';
 import SkeletonLoader from './SkeltonPgfl';
 import config from '../config.js';
@@ -75,7 +75,7 @@ const LeadsDistribution = () => {
   }).then((res) => res.json());
   const { data, error } = useSWR(`${config.hostedUrl}/leadsDistribute/pgfl`, fetcher, {
   });
-  
+
   // Fetch employee details on component mount
   useEffect(() => {
     dispatch(fetchEmployeesDetails());
@@ -90,7 +90,7 @@ const LeadsDistribution = () => {
         }
       });
       setMatchedLeads(leads);
-  
+
       // Set disabled state for leads that have non-empty statuses
       const disabledLeadsMap = leads.reduce((acc, lead) => {
         if (lead.status) { // If the lead status is not empty
@@ -99,14 +99,14 @@ const LeadsDistribution = () => {
         return acc;
       }, {});
       setDisabledLeads(disabledLeadsMap);
-  
+
       // Store the disabled leads in localStorage
       localStorage.setItem('disabledLeads', JSON.stringify(disabledLeadsMap));
     } catch (error) {
       console.error('Error fetching matched leads:', error.message);
     }
   }, [Employee_Id]); // Memoize based on Employee_Id
-  
+
 
   // Load disabledLeads from localStorage and fetch matched leads when the component mounts
   useEffect(() => {
@@ -246,13 +246,11 @@ const LeadsDistribution = () => {
         }
         return resetLeads;
       });
-
     } catch (error) {
       const errorMessage = error.response?.data?.error || 'Failed to update lead statuses';
       console.error('Error saving lead statuses:', errorMessage);
       alert(errorMessage);
     } finally {
-      // Set saving back to false when the request completes
       setSaving(false);
     }
     fetchMatchedLeads();
@@ -283,30 +281,18 @@ const LeadsDistribution = () => {
       setSaving(false); // Ensure saving state is reset
     }
   };
-  
+
 
   if (error) return <div><Page404 /></div>;
 
   return (
     <>
-      <div className="flex h-full my-1 opacity-1">
+      <div className="flex w-full h-full my-1 opacity-1">
         <LottieFile />
         <SideBar />
         <Card className="h-full w-full mx-2 opacity-1 bg-custom shadow-none">
           {/* Sticky header for the member list and search bar */}
-          <div className="mt-1 pt-3 pb-4 z-10 px-4 rounded-border bg-transparent">
-            <div className="p-3 mb-3 bg-blue-gray-50 rounded-border">
-              <Typography variant="md" color="blue-gray" className="font-bold">
-                Potential Google Form Leads (PGFL)📝:
-              </Typography>
-              <Typography variant="sm" color="gray" className="font-normal text-blue-gray-500">
-                This tab contains urgent leads from the Potential Google Form (PGFL). Please prioritize contacting these leads immediately and ensure that their status is updated promptly and accurately.<br />
-                <ArrowRightCircleIcon className="inline-block w-6 h-6 text-black" /> Click on Update Leads button to send their status to Admin<br />
-                <ArrowRightCircleIcon className="inline-block w-6 h-6 text-black" /> Once lead status updated, cannot be change except "❌ DNP", "🕒 Busy", "📞 Disconnected", "🚫 Not Called Yet", "🔄 Follow Up" or "😐 Not Interested".<br />
-                <ArrowRightCircleIcon className="inline-block w-6 h-6 text-black" /> Status should be updated for all the leads everyday before logout.<br />
-              </Typography>
-            </div>
-
+          <div className="pt-2 pb-4 z-10 px-4 rounded-border bg-transparent">
             <Dialog
               open={open}
               handler={handleOpen}
@@ -425,7 +411,6 @@ const LeadsDistribution = () => {
                 ))}
               </select>
             </div>
-
           </div>
 
           {/* Leads Table */}
@@ -434,7 +419,7 @@ const LeadsDistribution = () => {
               <table className="w-full min-w-max table-auto text-left">
                 <thead>
                   <tr>
-                    {["Student Name", "Contacts", "Course", "College", "State", "Degree", "Graduation Year", "Status"].map((head) => (
+                    {["Student Name", "Contacts", "Course", "College", "State", "Degree", "Status"].map((head) => (
                       <th key={head} className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-3">
                         <Typography variant="small" className="font-bold leading-none text-black">
                           {head}
@@ -471,7 +456,7 @@ const LeadsDistribution = () => {
                               </div>
                             </td>
                             <td className="p-3">
-                              <Chip variant="small" value={course1} className="font-bold text-center text-white bg-black p-2.5 w-32 whitespace-normal break-words">
+                              <Chip value={course1} className="font-bold text-center text-white bg-black p-2.5 w-32 whitespace-normal break-words">
                               </Chip>
                             </td>
                             <td className="p-3">
@@ -484,9 +469,7 @@ const LeadsDistribution = () => {
                             <td className="p-3">
                               <Typography variant="small" color='blue-gray' className="font-normal w-24 whitespace-normal break-words">{degree}
                               </Typography>
-                            </td>
-                            <td className="p-3">
-                              <Typography variant="small" color="blue-gray" className="font-normal">{graduation_year}</Typography>
+                              <Typography variant="small" color="blue-gray" className="font-normal border border-gray-600 p-1 rounded-lg">{graduation_year}</Typography>
                             </td>
                             <td className="p-3">
                               <div className="flex items-center gap-2">
@@ -512,45 +495,45 @@ const LeadsDistribution = () => {
 
                                 {(updatedLeads[id]?.status === "Follow Up" || updatedLeads[id]?.status === "Not Interested" || status === "Follow Up" || status === "Not Interested") && (
                                   <>
-                                  <button
-                                    className='text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800' onClick={handleOpenNote} variant="gradient">
-                                    Add Note
-                                  </button>
-                                  <Dialog
-                                  open={openNote}
-                                  handler={handleOpenNote}
-                                  animate={{
-                                    mount: { scale: 1, y: 0 },
-                                    unmount: { scale: 0.9, y: -100 },
-                                    }} 
-                                  transition={{ duration: 0.1 }} 
-                                >
-                                  <DialogHeader>Add your Note here.</DialogHeader>
-                                  <DialogBody className="max-h-[500px] overflow-y-auto">
-                                    <textarea
-                                      className="w-full h-14 text-sm p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-                                      placeholder="Note"
-                                      value={updatedLeads[id]?.note || ''}
-                                      onChange={(event) => handleNoteChange(event, id)}
-                                    />
-                                  </DialogBody>
-                                  <DialogFooter>
-                                    <Button
-                                      variant="text"
-                                      color="red"
-                                      onClick={() => handleOpenNote(null)}
-                                      className="mr-1"
+                                    <button
+                                      className='text-white bg-black hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800' onClick={handleOpenNote} variant="gradient">
+                                      Add Note
+                                    </button>
+                                    <Dialog
+                                      open={openNote}
+                                      handler={handleOpenNote}
+                                      animate={{
+                                        mount: { scale: 1, y: 0 },
+                                        unmount: { scale: 0.9, y: -100 },
+                                      }}
+                                      transition={{ duration: 0.1 }}
                                     >
-                                      <span>Cancel</span>
-                                    </Button>
-                                    <Button onClick={handleSaveAndRefresh} className="bg-black text-white p-3 w-32" disabled={saving}>
-                                      {saving ? 'Saving...' : 'Update Leads'}
-                                    </Button>
-                                  </DialogFooter>
-                                </Dialog>
+                                      <DialogHeader>Add your Note here.</DialogHeader>
+                                      <DialogBody className="max-h-[500px] overflow-y-auto">
+                                        <textarea
+                                          className="w-full h-14 text-sm p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                                          placeholder="Note"
+                                          value={updatedLeads[id]?.note || ''}
+                                          onChange={(event) => handleNoteChange(event, id)}
+                                        />
+                                      </DialogBody>
+                                      <DialogFooter>
+                                        <Button
+                                          variant="text"
+                                          color="red"
+                                          onClick={() => handleOpenNote(null)}
+                                          className="mr-1"
+                                        >
+                                          <span>Cancel</span>
+                                        </Button>
+                                        <Button onClick={handleSaveAndRefresh} className="bg-black text-white p-3 w-32" disabled={saving}>
+                                          {saving ? 'Saving...' : 'Update Leads'}
+                                        </Button>
+                                      </DialogFooter>
+                                    </Dialog>
                                   </>
                                 )}
-                                
+
 
                                 {(disabledLeads[id]) && (
                                   <div className="inline-flex items-center">
@@ -568,11 +551,11 @@ const LeadsDistribution = () => {
                       })
                     ) : (
                       <tr>
-                        <td colSpan={8} className="text-center p-3">No leads found</td>
+                        <td colSpan={9} className="text-center p-3">No leads found</td>
                       </tr>
                     )
                   ) : (
-                    <SkeletonLoader count={10} />
+                    <SkeletonLoader count={9} />
                   )}
                 </tbody>
               </table>
