@@ -163,9 +163,6 @@ const CheckPayments = () => {
                   <span className="text-green-500 ml-2 text-lg md:text-base">Sales</span>
                   <Chip color='indigo' value={salesCountNumber} className='text-white bg-black font-bold inline-block pt-2 ml-1' />
                   {/* Vertical line */}
-                  <span className="mx-2 md:mx-4 border-l border-gray-500 h-6 inline-block"></span>
-                  <span className="text-red-500 text-lg md:text-base">Post Sales</span>
-                  <Chip color='indigo' value={postSalesCountNumber} className='text-white bg-black font-bold inline-block pt-2 ml-1' />
               </Typography>
             </div>
           )}
